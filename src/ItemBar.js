@@ -1,9 +1,9 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 
-const ItemBar = ({ active, delay, data, xAxis }) => {
+const ItemBar = ({ active, delay, data, xAxis, showOverlay }) => {
   return (
-    <StatsItem>
+    <StatsItem onClick={() => showOverlay()}>
       <StatsItemNum active={active} delay={delay}>
         {xAxis}
       </StatsItemNum>
@@ -33,11 +33,9 @@ const StatsBar = styled.div`
       transform: none;
       transition-delay: ${props.delay}s;
     `}
-
   @media (max-width: 690px) {
     ${props => css`
       width: ${(props.data / 300) * 100}%;
-      transition-delay: ${props.delay}s;
     `}
     height: 30px;
   }
