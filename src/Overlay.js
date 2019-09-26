@@ -48,6 +48,7 @@ const OverlayContainer = styled.div`
       visibility: visible;
       -webkit-transform: none;
       transform: none;
+      transition-delay: 0.6s;
     `}
 `;
 
