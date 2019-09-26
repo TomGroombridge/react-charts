@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import ItemBar from './ItemBar';
 import styled from 'styled-components';
 import Overlay from './Overlay';
-// import Header from './Header';
+import Header from './Header';
+import { GlobalStyles } from '@zopauk/react-components';
 
 const App = () => {
   const [active, setActive] = useState(false);
@@ -19,7 +20,8 @@ const App = () => {
 
   return (
     <SMain>
-      {/* <Header active={active} /> */}
+      <GlobalStyles />
+      <Header active={active} />
       <List>
         <ItemBar
           active={active}
