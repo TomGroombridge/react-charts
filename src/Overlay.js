@@ -48,12 +48,12 @@ const OverlayContainer = styled.div`
       visibility: visible;
       -webkit-transform: none;
       transform: none;
-      transition-delay: 0.6s;
+      transition-delay: 0.9s;
     `}
 `;
 
 const Back = styled.div`
-  backdisplay: flex;
+  display: flex;
   align-items: center;
   cursor: pointer;
   > svg {
