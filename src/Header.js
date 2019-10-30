@@ -26,6 +26,9 @@ const SHeader = styled.header`
       transform: none;
       opacity: 1;
     `}
+  @media (max-width: 690px) {
+    margin-bottom: 30px;
+  }
 `;
 
 export default Header;

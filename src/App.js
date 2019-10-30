@@ -4,12 +4,17 @@ import styled from 'styled-components';
 import Overlay from './Overlay';
 import Header from './Header';
 import { GlobalStyles } from '@zopauk/react-components';
+import { splitTransactions, netSpend } from './helpers';
+
+const transactions = require('./data/transactions.json');
 
 const App = () => {
   const [active, setActive] = useState(false);
   const [activeOverlay, setActiveOverlay] = useState(false);
+  const [weeklyTransaction, setWeeklyTransactions] = useState([]);
 
   useEffect(() => {
+    setWeeklyTransactions(splitTransactions(transactions));
     setActive(true);
   }, []);
 
@@ -23,55 +28,18 @@ const App = () => {
       <GlobalStyles />
       <Header active={active} />
       <List>
-        <ItemBar
-          active={active}
-          delay={0.1}
-          data={260}
-          xAxis={'26/09'}
-          showOverlay={toggleOverlay}
-        />
-        <ItemBar
-          active={active}
-          delay={0.2}
-          data={224}
-          xAxis={'25/09'}
-          showOverlay={toggleOverlay}
-        />
-        <ItemBar
-          active={active}
-          delay={0.3}
-          data={200}
-          xAxis={'24/09'}
-          showOverlay={toggleOverlay}
-        />
-        <ItemBar
-          active={active}
-          delay={0.4}
-          data={128}
-          xAxis={'23/09'}
-          showOverlay={toggleOverlay}
-        />
-        <ItemBar
-          active={active}
-          delay={0.5}
-          data={152}
-          xAxis={'22/09'}
-          showOverlay={toggleOverlay}
-        />
-        <ItemBar
-          active={active}
-          delay={0.6}
-          data={128.4}
-          xAxis={'21/09'}
-          showOverlay={toggleOverlay}
-        />
-        <ItemBar
-          active={active}
-          delay={0.7}
-          data={204}
-          xAxis={'20/09'}
-          showOverlay={toggleOverlay}
-        />
+        {weeklyTransaction.map((week, index) => {
+          return (
+            <ItemBar
+              key={index}
+              active={active}
+              delay={1.3}
+              data={netSpend(week)}
+              xAxis={'26/09'}
+              showOverlay={toggleOverlay}
+            />
+          );
+        })}
       </List>
       <Overlay active={activeOverlay} hideOverlay={toggleOverlay} />
     </SMain>
