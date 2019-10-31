@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 
-const Overlay = ({ active, hideOverlay }) => {
+const Overlay = ({ active, hideOverlay, activeWeek }) => {
   return (
     <OverlayContainer active={active}>
       <Back onClick={() => hideOverlay()}>
@@ -17,8 +17,8 @@ const Overlay = ({ active, hideOverlay }) => {
         <p>Back</p>
       </Back>
       <DataCircle>
-        <Value>257</Value>
-        <Title>Number of data points</Title>
+        <Value>£{activeWeek}</Value>
+        <Title>Debits made</Title>
       </DataCircle>
     </OverlayContainer>
   );

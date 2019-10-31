@@ -12,36 +12,62 @@ const App = () => {
   const [active, setActive] = useState(false);
   const [activeOverlay, setActiveOverlay] = useState(false);
   const [weeklyTransaction, setWeeklyTransactions] = useState([]);
-
+  const [highestValue, setHighestValue] = useState();
+  const [activeWeek, setActiveWeek] = useState();
   useEffect(() => {
     setWeeklyTransactions(splitTransactions(transactions));
+
     setActive(true);
   }, []);
 
-  const toggleOverlay = () => {
+  const toggleOverlay = week => {
+    setActiveWeek(week);
     setActive(!active);
     setActiveOverlay(!activeOverlay);
   };
+
+  const setValue = array => {
+    const value = Math.max.apply(
+      Math,
+      array.map(function(o) {
+        return netSpend(o);
+      })
+    );
+    return value;
+  };
+
+  useEffect(() => {
+    if (weeklyTransaction.length > 0) {
+      const x = setValue(weeklyTransaction);
+      setHighestValue(x);
+    }
+  }, [weeklyTransaction]);
 
   return (
     <SMain>
       <GlobalStyles />
       <Header active={active} />
       <List>
-        {weeklyTransaction.map((week, index) => {
-          return (
-            <ItemBar
-              key={index}
-              active={active}
-              delay={1.3}
-              data={netSpend(week)}
-              xAxis={'26/09'}
-              showOverlay={toggleOverlay}
-            />
-          );
-        })}
+        {highestValue &&
+          weeklyTransaction.map((week, index) => {
+            return (
+              <ItemBar
+                key={index}
+                active={active}
+                delay={1.3}
+                data={netSpend(week)}
+                xAxis={`${netSpend(week)}`}
+                showOverlay={toggleOverlay}
+                height={netSpend(week) * (400 / highestValue)}
+              />
+            );
+          })}
       </List>
-      <Overlay active={activeOverlay} hideOverlay={toggleOverlay} />
+      <Overlay
+        active={activeOverlay}
+        hideOverlay={toggleOverlay}
+        activeWeek={activeWeek}
+      />
     </SMain>
   );
 };
@@ -50,6 +76,7 @@ const List = styled.ul`
   list-style-type: none;
   padding: 0;
   margin: 0;
+  height: 100px;
 `;
 
 const SMain = styled.main`

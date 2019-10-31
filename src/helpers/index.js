@@ -19,11 +19,15 @@ const getMonday = date => {
 
 export const splitTransactions = data => {
   const weekOne = data.results.filter(transaction => {
-    return new Date(transaction.timestamp) >= thisWeek();
+    return (
+      transaction.transaction_type === 'DEBIT' &&
+      new Date(transaction.timestamp) >= thisWeek()
+    );
   });
 
   const weekTwo = data.results.filter(transaction => {
     return (
+      transaction.transaction_type === 'DEBIT' &&
       new Date(transaction.timestamp) < thisWeek() &&
       new Date(transaction.timestamp) >= twoWeeksAgo()
     );
@@ -31,6 +35,7 @@ export const splitTransactions = data => {
 
   const weekThree = data.results.filter(transaction => {
     return (
+      transaction.transaction_type === 'DEBIT' &&
       new Date(transaction.timestamp) < twoWeeksAgo() &&
       new Date(transaction.timestamp) >= threeWeeksAgo()
     );
@@ -41,7 +46,7 @@ export const splitTransactions = data => {
 
 export const netSpend = transactions => {
   const total = transactions.reduce(function(prev, cur) {
-    return prev + cur.amount;
+    return prev + Math.abs(cur.amount);
   }, 0);
 
   return total;
