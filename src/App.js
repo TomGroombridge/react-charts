@@ -56,6 +56,7 @@ const App = () => {
                 active={active}
                 delay={1.3}
                 data={netSpend(week)}
+                weeksData={week}
                 xAxis={`${netSpend(week)}`}
                 showOverlay={toggleOverlay}
                 height={netSpend(week) * (400 / highestValue)}

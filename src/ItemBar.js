@@ -1,9 +1,17 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 
-const ItemBar = ({ active, delay, data, xAxis, showOverlay, height }) => {
+const ItemBar = ({
+  active,
+  delay,
+  data,
+  xAxis,
+  showOverlay,
+  height,
+  weeksData
+}) => {
   return (
-    <StatsItem onClick={() => showOverlay(data)}>
+    <StatsItem onClick={() => showOverlay(weeksData)}>
       <StatsItemNum active={active} delay={delay}>
         {xAxis}
       </StatsItemNum>

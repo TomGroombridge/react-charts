@@ -1,7 +1,9 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
+import { netSpend } from './helpers';
 
 const Overlay = ({ active, hideOverlay, activeWeek }) => {
+  const debits = active ? netSpend(activeWeek) : '';
   return (
     <OverlayContainer active={active}>
       <Back onClick={() => hideOverlay()}>
@@ -16,8 +18,23 @@ const Overlay = ({ active, hideOverlay, activeWeek }) => {
         </svg>
         <p>Back</p>
       </Back>
+
+      {active &&
+        activeWeek.map((transaction, index) => {
+          const date = new Date(transaction.timestamp);
+          return (
+            <SDataCircle
+              key={index}
+              left={Math.random() * window.innerWidth * 0.9}
+              top={Math.random() * window.innerHeight * 0.9}
+            >
+              <SValue>£{transaction.amount}</SValue>
+              <STitle>{`${date.getDate()}/${date.getMonth()}/`}</STitle>
+            </SDataCircle>
+          );
+        })}
       <DataCircle>
-        <Value>£{activeWeek}</Value>
+        <Value>£{debits}</Value>
         <Title>Debits made</Title>
       </DataCircle>
     </OverlayContainer>
@@ -97,6 +114,26 @@ const Value = styled.span`
 
 const Title = styled.p`
   margin: 0;
+`;
+
+const SValue = styled.span`
+  font-size: 14px;
+  font-weight: 700;
+`;
+
+const STitle = styled.p`
+  margin: 0;
+`;
+
+const SDataCircle = styled(DataCircle)`
+  width: 100px;
+  height: 100px;
+  background: #ffffff;
+  color: #00b9a7;
+  left: ${props => props.left}px;
+  top: ${props => props.top}px;
+  z-index: 1;
+  border: 2px solid #00b9a7;
 `;
 
 export default Overlay;
