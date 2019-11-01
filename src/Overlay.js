@@ -28,8 +28,8 @@ const Overlay = ({ active, hideOverlay, activeWeek }) => {
               left={Math.random() * window.innerWidth * 0.9}
               top={Math.random() * window.innerHeight * 0.9}
             >
-              <SValue>£{transaction.amount}</SValue>
-              <STitle>{`${date.getDate()}/${date.getMonth()}/`}</STitle>
+              <SValue>£{Math.abs(transaction.amount)}</SValue>
+              <STitle>{`${date.getDate()}/${date.getMonth()}`}</STitle>
             </SDataCircle>
           );
         })}

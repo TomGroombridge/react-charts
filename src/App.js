@@ -26,11 +26,11 @@ const App = () => {
     setActiveOverlay(!activeOverlay);
   };
 
-  const setValue = array => {
+  const setValue = transactions => {
     const value = Math.max.apply(
       Math,
-      array.map(function(o) {
-        return netSpend(o);
+      transactions.map(week => {
+        return netSpend(week);
       })
     );
     return value;
@@ -59,7 +59,7 @@ const App = () => {
                 weeksData={week}
                 xAxis={`${netSpend(week)}`}
                 showOverlay={toggleOverlay}
-                height={netSpend(week) * (400 / highestValue)}
+                height={netSpend(week) * (300 / highestValue)}
               />
             );
           })}
