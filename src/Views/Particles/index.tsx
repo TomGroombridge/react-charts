@@ -1,11 +1,9 @@
 import React from 'react';
 import Particle from './components/Particle';
-import { Button } from '@zopauk/react-components';
 
-const Particles = ({ handleClick, particles }: any) => {
+const Particles = ({ particles }: any) => {
   return (
     <>
-      <Button onClick={() => handleClick()}>Add Particle</Button>
       <div className='circle'>
         <div className='camera -x'>
           <div className='camera -y'>
@@ -13,7 +11,12 @@ const Particles = ({ handleClick, particles }: any) => {
               <div className='particles'>
                 {particles &&
                   particles.map((x: any, index: any) => {
-                    return <Particle key={index} />;
+                    return (
+                      <Particle
+                        key={index}
+                        category={`${x.transaction_category}`}
+                      />
+                    );
                   })}
               </div>
             </div>

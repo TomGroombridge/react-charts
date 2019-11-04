@@ -5,18 +5,61 @@ $amplitudeDuration: 1000;
 $rotateDuration: 10000;
 $rotateDurationMin: 5000;
 
-// body {
-//   background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
-//   height: 100vh;
-//   overflow: hidden;
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   perspective: 600px;
-// }
+.bill_payment {
+  background: #001f3f !important;
+}
 
 div {
   transform-style: preserve-3d;
+}
+
+.atm {
+  background: #0074d9 !important;
+}
+.cash {
+  background: #7fdbff !important;
+}
+.cashback {
+  background: #39cccc !important;
+}
+.cheque {
+  background: #3d9970 !important;
+}
+.correction {
+  background: #2ecc40 !important;
+}
+.credit {
+  background: #01ff70 !important;
+}
+.direct_debit {
+  background: #ffdc00 !important;
+}
+.divided {
+  background: #ff851b !important;
+}
+.fee_charge {
+  background: #ff4136 !important;
+}
+.interest {
+  background: #85144b !important;
+}
+.other {
+  background: #f012be !important;
+}
+.purchase {
+  background: #b10dc9 !important;
+}
+.standing_order {
+  background: #111111 !important;
+}
+.transfer {
+  background: #aaaaaa !important;
+}
+.debit {
+  background: #dddddd !important;
+}
+.unknown {
+  background: #ffffff !important;
 }
 
 .particles {
@@ -57,7 +100,6 @@ div {
     top: $amplitude;
     border-radius: 100%;
     background: linear-gradient(0deg, rgba(#fff, 0) 50%, rgba(#fff, 0.1) 100%);
-    // filter: blur(2px);
   }
 }
 
@@ -70,7 +112,7 @@ div {
 }
 
 .particle {
-  @for $i from 1 through 200 {
+  @for $i from 1 through 300 {
     $delay: (random(99999) + $rotateDuration + $rotateDurationMin) * -1ms;
     $duration: random($rotateDuration) + $rotateDurationMin + 0ms;
     $r: random(100) + 100;
@@ -89,12 +131,7 @@ div {
       }
 
       .graphic {
-        background: #fff;
-        // background: linear-gradient(
-        //   0deg,
-        //   rgba($r - 50, $g - 50, $b - 50, 1) 0%,
-        //   rgba($r + 50, $g + 50, $b + 50, 1) 100%
-        // );
+        // background: #fff;
         animation: amplitude
           $amplitudeDuration +
           0ms
@@ -104,7 +141,6 @@ div {
           alternate;
 
         &::before {
-          // background: #fff
           background: linear-gradient(
             0deg,
             rgba(255, 255, 255, 0) 50%,
