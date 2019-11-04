@@ -2,7 +2,7 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import { netSpend } from './helpers';
 
-const Overlay = ({ active, hideOverlay, activeWeek }) => {
+const Overlay = ({ active, hideOverlay, activeWeek }: any) => {
   const debits = active ? netSpend(activeWeek) : '';
   return (
     <OverlayContainer active={active}>
@@ -20,13 +20,13 @@ const Overlay = ({ active, hideOverlay, activeWeek }) => {
       </Back>
 
       {active &&
-        activeWeek.map((transaction, index) => {
+        activeWeek.map((transaction: any, index: any) => {
           const date = new Date(transaction.timestamp);
           return (
             <SDataCircle
               key={index}
-              left={Math.random() * window.innerWidth * 0.9}
-              top={Math.random() * window.innerHeight * 0.9}
+              left={Math.random() * window.innerWidth * 0.5}
+              top={Math.random() * window.innerHeight * 0.5}
             >
               <SValue>£{Math.abs(transaction.amount)}</SValue>
               <STitle>{`${date.getDate()}/${date.getMonth()}`}</STitle>
@@ -41,7 +41,7 @@ const Overlay = ({ active, hideOverlay, activeWeek }) => {
   );
 };
 
-const OverlayContainer = styled.div`
+const OverlayContainer: any = styled.div`
   position: fixed;
   top: 0;
   left: 0;
@@ -58,7 +58,7 @@ const OverlayContainer = styled.div`
       padding: 12.5px;
     }
   }
-  ${props =>
+  ${(props: any) =>
     props.active &&
     css`
       opacity: 1;
@@ -125,13 +125,13 @@ const STitle = styled.p`
   margin: 0;
 `;
 
-const SDataCircle = styled(DataCircle)`
+const SDataCircle: any = styled(DataCircle)`
   width: 100px;
   height: 100px;
   background: #ffffff;
   color: #00b9a7;
-  left: ${props => props.left}px;
-  top: ${props => props.top}px;
+  left: ${(props: any) => props.left}px;
+  top: ${(props: any) => props.top}px;
   z-index: 1;
   border: 2px solid #00b9a7;
 `;
