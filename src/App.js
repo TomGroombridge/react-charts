@@ -25,7 +25,7 @@ const App = () => {
 
 const SMain = styled.main`
   position: relative;
-  padding: 0 25px;
+  padding: 25px 25px;
   @media (max-width: 690px) {
     width: 100%;
   }

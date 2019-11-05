@@ -1,38 +1,62 @@
 import React from 'react';
 import { Button } from '@zopauk/react-components';
+import styled from 'styled-components';
 
-const FilterButtons = ({ handleClick }: any) => {
+const FilterButtons = ({ handleClick, unfiltererdValues }: any) => {
   return (
     <>
-      <Button
+      <SButton
         onClick={() => handleClick('PURCHASE')}
-        styling='contrastSecondary'
+        styling={'contrastSecondary'}
+        filteredOut={unfiltererdValues.includes('PURCHASE')}
       >
         Purchases
-      </Button>
-      <Button onClick={() => handleClick('ATM')} styling='contrastSecondary'>
+      </SButton>
+      <SButton
+        onClick={() => handleClick('ATM')}
+        styling={'contrastSecondary'}
+        filteredOut={unfiltererdValues.includes('ATM')}
+      >
         ATM
-      </Button>
-      <Button onClick={() => handleClick('CREDIT')} styling='contrastSecondary'>
+      </SButton>
+      <SButton
+        onClick={() => handleClick('CREDIT')}
+        filteredOut={unfiltererdValues.includes('CREDIT')}
+        styling={'contrastSecondary'}
+      >
         Credit
-      </Button>
-      <Button onClick={() => handleClick('DEBIT')} styling='contrastSecondary'>
+      </SButton>
+      <SButton
+        onClick={() => handleClick('DEBIT')}
+        styling={'contrastSecondary'}
+        filteredOut={unfiltererdValues.includes('DEBIT')}
+      >
         Debit
-      </Button>
-      <Button
+      </SButton>
+      <SButton
         onClick={() => handleClick('DIRECT_DEBIT')}
-        styling='contrastSecondary'
+        styling={'contrastSecondary'}
+        filteredOut={unfiltererdValues.includes('DIRECT_DEBIT')}
       >
         Direct Debit
-      </Button>
-      <Button
+      </SButton>
+      <SButton
         onClick={() => handleClick('BILL_PAYMENT')}
-        styling='contrastSecondary'
+        styling={'contrastSecondary'}
+        filteredOut={unfiltererdValues.includes('BILL_PAYMENT')}
       >
         Bill Payment
-      </Button>
+      </SButton>
     </>
   );
 };
+
+const SButton: any = styled(Button)`
+  ${(props: any) =>
+    props.filteredOut &&
+    `
+    text-decoration: line-through
+  `}
+`;
 
 export default FilterButtons;

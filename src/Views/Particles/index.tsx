@@ -1,7 +1,7 @@
 import React from 'react';
 import Particle from './components/Particle';
 
-const Particles = ({ particles }: any) => {
+const Particles = ({ particles, processRunning }: any) => {
   return (
     <>
       <div className='circle'>
@@ -9,7 +9,8 @@ const Particles = ({ particles }: any) => {
           <div className='camera -y'>
             <div className='camera -z'>
               <div className='particles'>
-                {particles &&
+                {!processRunning &&
+                  particles &&
                   particles.map((x: any, index: any) => {
                     return (
                       <Particle
