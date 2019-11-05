@@ -1,16 +1,4 @@
-* {
-  box-sizing: border-box;
-}
-
 body {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  line-height: 1.5;
-  font-family: 'Lato';
-  -webkit-font-smoothing: antialiased;
-  color: white;
   background: #00b9a7;
 }
 

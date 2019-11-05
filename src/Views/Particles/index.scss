@@ -63,7 +63,7 @@ div {
 }
 
 .particles {
-  transform: translateY(-100px);
+  transform: translateY(200px);
 }
 
 .camera {
@@ -131,7 +131,6 @@ div {
       }
 
       .graphic {
-        // background: #fff;
         animation: amplitude
           $amplitudeDuration +
           0ms
