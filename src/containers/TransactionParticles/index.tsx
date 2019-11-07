@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import Particles from '../../Views/Particles';
 import FilterButtons from '../../Views/Particles/components/FilterButtons';
 import transactions from '../../data/transactions.json';
+import Overlay from '../../Views/Particles/components/Overlay';
+import HeaderText from '../../Views/Particles/components/HeaderText';
 import {
   FlexContainer,
   FlexRow,
   FlexCol,
-  Heading,
-  Text,
   Button
 } from '@zopauk/react-components';
 
@@ -16,6 +16,11 @@ const TransactionParticles = () => {
   const [particles, setParticles] = useState([]) as any[];
   const [unfiltererdValues, setUnfiltererdValues] = useState(['']);
   const [processRunning, setProcessRunning] = useState(false);
+  const [activeOverlay, setActiveOverlay] = useState(true);
+
+  const toggleOverlay = () => {
+    setActiveOverlay(!activeOverlay);
+  };
 
   useEffect(() => {
     const data = transactions.results;
@@ -49,46 +54,45 @@ const TransactionParticles = () => {
   };
 
   return (
-    <FlexContainer>
-      <FlexRow>
-        <FlexCol xs={12}>
-          <Heading as={'h1'} color={'#FFFFFF'}>
-            Account Transactions
-          </Heading>
-          <Text as={'p'} size={'lead'} color={'#FFFFFF'}>
-            Here is a list of transactions you have made on your account over
-            the path 3 months.
-          </Text>
-          <Text as={'p'} size={'lead'} color={'#FFFFFF'}>
-            Click the buttons below to filter by certain transaction types
-          </Text>
-          <br />
-        </FlexCol>
-      </FlexRow>
-      <FlexRow align={'center'}>
-        <FlexCol xs={12} style={{ marginBottom: '24px' }}>
-          <FilterButtons
-            handleClick={handleClick}
-            unfiltererdValues={unfiltererdValues}
-          />
-        </FlexCol>
-        <FlexCol xs={12}>
-          <Button
-            onClick={() => console.log('show stuff')}
-            styling={'contrastSecondary'}
-          >
-            Show Transactions
-          </Button>
-        </FlexCol>
-      </FlexRow>
-      <FlexRow>
-        <FlexCol xs={12}>
-          {particles.length > 0 && (
-            <Particles particles={particles} processRunning={processRunning} />
-          )}
-        </FlexCol>
-      </FlexRow>
-    </FlexContainer>
+    <>
+      <FlexContainer style={{ display: activeOverlay ? 'none' : 'block' }}>
+        <FlexRow>
+          <HeaderText />
+        </FlexRow>
+        <FlexRow>
+          <FlexCol style={{ marginBottom: '24px' }}>
+            <FilterButtons
+              handleClick={handleClick}
+              unfiltererdValues={unfiltererdValues}
+            />
+          </FlexCol>
+          <FlexCol>
+            <Button
+              onClick={() => toggleOverlay()}
+              styling={'contrastSecondary'}
+            >
+              Show Transactions
+            </Button>
+          </FlexCol>
+        </FlexRow>
+        <FlexRow>
+          <FlexCol>
+            {particles.length > 0 && (
+              <Particles
+                particles={particles}
+                processRunning={processRunning}
+              />
+            )}
+          </FlexCol>
+        </FlexRow>
+      </FlexContainer>
+
+      <Overlay
+        active={activeOverlay}
+        activeWeek={particles}
+        hideOverlay={toggleOverlay}
+      />
+    </>
   );
 };
 
