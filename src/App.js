@@ -3,6 +3,7 @@ import { GlobalStyles } from '@zopauk/react-components';
 import styled from 'styled-components';
 import TransactionalChart from './containers/TransactionalChart';
 import TransactionParticles from './containers/TransactionParticles';
+import AddBankAccount from './containers/AddBankAccount';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 const App = () => {
@@ -14,7 +15,10 @@ const App = () => {
           <Route exact path='/'>
             <TransactionalChart />
           </Route>
-          <Route path='/particles' exact>
+          {/* <Route exact path='/addBankAccount'>
+            <AddBankAccount />
+          </Route> */}
+          <Route path='/addBankAccount' exact>
             <TransactionParticles />
           </Route>
         </Switch>
