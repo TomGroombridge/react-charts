@@ -1,28 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { FlexContainer, Heading, Button } from '@zopauk/react-components';
-import { useLocation } from 'react-router-dom';
-import axios from 'axios';
 
 const AddBankAccount = () => {
-  let location = useLocation();
-  const [accounts, setAccounts] = useState([]);
-
-  useEffect(() => {
-    const params = new URLSearchParams(location.search);
-    const code = params.get('code');
-    if (code !== null) {
-      axios
-        .get(`http://localhost:5000/truelayer-redirect?code=${code}`)
-        .then(response => {
-          console.log('response', response);
-          setAccounts(response.data.results);
-        })
-        .catch(() => {
-          console.log('ERROR!!!');
-        });
-    }
-  }, []);
-
   const handleClick = (e: any) => {
     e.preventDefault();
     window.location.href =
@@ -30,8 +9,6 @@ const AddBankAccount = () => {
 
     return null;
   };
-
-  console.log('accounts', accounts);
 
   return (
     <FlexContainer>

@@ -8,9 +8,11 @@ import {
   FlexContainer,
   FlexRow,
   FlexCol,
-  Button
+  Button,
+  Heading
 } from '@zopauk/react-components';
 import { useLocation } from 'react-router-dom';
+import styled from 'styled-components';
 
 const TransactionParticles = () => {
   let location = useLocation();
@@ -20,6 +22,7 @@ const TransactionParticles = () => {
   const [processRunning, setProcessRunning] = useState(false);
   const [activeOverlay, setActiveOverlay] = useState(false);
   const [filterButtons, setFilterButtons] = useState([]) as any[];
+  const [loading, setLoading] = useState(false);
 
   const toggleOverlay = () => {
     setActiveOverlay(!activeOverlay);
@@ -29,6 +32,7 @@ const TransactionParticles = () => {
     const params = new URLSearchParams(location.search);
     const code = params.get('code');
     if (code !== null) {
+      setLoading(true);
       axios
         .get(`http://localhost:5000/truelayer-redirect?code=${code}`)
         .then((response: any) => {
@@ -39,9 +43,11 @@ const TransactionParticles = () => {
           );
           const x = [...new Set(result)];
           setFilterButtons(x);
+          setLoading(false);
         })
         .catch(() => {
           console.log('ERROR!!!');
+          setLoading(false);
         });
     }
   }, []);
@@ -60,7 +66,6 @@ const TransactionParticles = () => {
     setProcessRunning(false);
   }, [unfiltererdValues]);
 
-  // &provider_id=oauth-monzo
   const addBank = (e: any) => {
     e.preventDefault();
     window.location.href =
@@ -80,51 +85,99 @@ const TransactionParticles = () => {
     }
   };
 
-  return (
-    <>
-      <FlexContainer style={{ display: activeOverlay ? 'none' : 'block' }}>
-        <FlexRow>
-          <HeaderText />
-        </FlexRow>
-        <FlexRow>
-          <FlexCol style={{ marginBottom: '24px' }}>
-            <Button onClick={e => addBank(e)}>Connect Bank Account</Button>
-          </FlexCol>
-          <FlexCol style={{ marginBottom: '24px' }}>
-            <FilterButtons
-              filterButtons={filterButtons}
-              handleClick={handleClick}
-              unfiltererdValues={unfiltererdValues}
-            />
-          </FlexCol>
-          <FlexCol>
-            <Button
-              onClick={() => toggleOverlay()}
-              styling={'contrastSecondary'}
-            >
-              Show Transactions
-            </Button>
-          </FlexCol>
-        </FlexRow>
-        <FlexRow>
-          <FlexCol>
-            {particles.length > 0 && (
-              <Particles
-                particles={particles}
-                processRunning={processRunning}
-              />
-            )}
-          </FlexCol>
-        </FlexRow>
-      </FlexContainer>
+  if (loading) {
+    return (
+      <>
+        <SFlexContainer activeOverlay={true}>
+          <FormLayout>
+            <FlexRow>
+              <SFlexCol>
+                <Heading as={'h1'} color={'#FFFFFF'}>
+                  Loading...
+                </Heading>
+              </SFlexCol>
+            </FlexRow>
+          </FormLayout>
+        </SFlexContainer>
+      </>
+    );
+  } else {
+    return (
+      <>
+        <SFlexContainer activeOverlay={!activeOverlay}>
+          {particles.length > 0 ? (
+            <>
+              <FlexRow>
+                <HeaderText />
+              </FlexRow>
+              <FlexRow>
+                <FlexCol style={{ marginBottom: '24px' }}>
+                  <FilterButtons
+                    filterButtons={filterButtons}
+                    handleClick={handleClick}
+                    unfiltererdValues={unfiltererdValues}
+                  />
+                </FlexCol>
+                <FlexCol>
+                  <Button
+                    onClick={() => toggleOverlay()}
+                    styling={'contrastSecondary'}
+                  >
+                    Show Transactions
+                  </Button>
+                </FlexCol>
+              </FlexRow>
+              <FlexRow>
+                <FlexCol>
+                  <Particles
+                    particles={particles}
+                    processRunning={processRunning}
+                  />
+                </FlexCol>
+              </FlexRow>
+            </>
+          ) : (
+            <FormLayout>
+              <FlexRow>
+                <SFlexCol>
+                  <Heading as={'h1'} color={'#FFFFFF'}>
+                    Connect bank to view transactions
+                  </Heading>
+                  <Button onClick={e => addBank(e)}>
+                    Connect Bank Account
+                  </Button>
+                </SFlexCol>
+              </FlexRow>
+            </FormLayout>
+          )}
+        </SFlexContainer>
 
-      <Overlay
-        active={activeOverlay}
-        activeWeek={particles}
-        hideOverlay={toggleOverlay}
-      />
-    </>
-  );
+        <Overlay
+          active={activeOverlay}
+          activeWeek={particles}
+          hideOverlay={toggleOverlay}
+        />
+      </>
+    );
+  }
 };
+
+const FormLayout = styled.div`
+  position: relative;
+  top: 30vh;
+  text-align: center;
+  @media screen and (max-width: 768px) {
+    top: 10vh;
+  }
+`;
+
+const SFlexCol = styled(FlexCol)`
+  margin-top: 24px;
+`;
+
+const SFlexContainer: any = styled(FlexContainer)`
+  display: ${(props: any) => (props.activeOverlay ? 'block' : 'none')};
+  text-align: center;
+`;
 
 export default TransactionParticles;

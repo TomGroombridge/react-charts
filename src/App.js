@@ -15,9 +15,6 @@ const App = () => {
           <Route exact path='/'>
             <TransactionalChart />
           </Route>
-          {/* <Route exact path='/addBankAccount'>
-            <AddBankAccount />
-          </Route> */}
           <Route path='/addBankAccount' exact>
             <TransactionParticles />
           </Route>
