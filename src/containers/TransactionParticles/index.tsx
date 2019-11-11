@@ -60,10 +60,11 @@ const TransactionParticles = () => {
     setProcessRunning(false);
   }, [unfiltererdValues]);
 
+  // &provider_id=oauth-monzo
   const addBank = (e: any) => {
     e.preventDefault();
     window.location.href =
-      'https://auth.truelayer.com/?response_type=code&client_id=pastuso-b0abfa&nonce=1014605873&scope=info%20accounts%20balance%20cards%20transactions%20direct_debits%20standing_orders%20offline_access&redirect_uri=http://localhost:3000/addBankAccount&providers=uk-ob-all%20uk-oauth-all&provider_id=oauth-monzo';
+      'https://auth.truelayer.com/?response_type=code&client_id=pastuso-b0abfa&nonce=1014605873&scope=info%20accounts%20balance%20cards%20transactions%20direct_debits%20standing_orders%20offline_access&redirect_uri=http://localhost:3000/addBankAccount&providers=uk-ob-all%20uk-oauth-all';
 
     return null;
   };
