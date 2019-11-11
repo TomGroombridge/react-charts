@@ -9,7 +9,8 @@ import {
   FlexRow,
   FlexCol,
   Button,
-  Heading
+  Heading,
+  colors
 } from '@zopauk/react-components';
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
@@ -121,7 +122,8 @@ const TransactionParticles = () => {
                 <FlexCol>
                   <Button
                     onClick={() => toggleOverlay()}
-                    styling={'contrastSecondary'}
+                    styling='contrastPrimary'
+                    contrastColor={colors.base.primary}
                   >
                     Show Transactions
                   </Button>
@@ -143,7 +145,11 @@ const TransactionParticles = () => {
                   <Heading as={'h1'} color={'#FFFFFF'}>
                     Connect bank to view transactions
                   </Heading>
-                  <Button onClick={e => addBank(e)}>
+                  <Button
+                    onClick={e => addBank(e)}
+                    styling='contrastPrimary'
+                    contrastColor={colors.base.primary}
+                  >
                     Connect Bank Account
                   </Button>
                 </SFlexCol>

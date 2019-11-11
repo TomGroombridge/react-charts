@@ -3,7 +3,6 @@ import { GlobalStyles } from '@zopauk/react-components';
 import styled from 'styled-components';
 import TransactionalChart from './containers/TransactionalChart';
 import TransactionParticles from './containers/TransactionParticles';
-import AddBankAccount from './containers/AddBankAccount';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 const App = () => {
