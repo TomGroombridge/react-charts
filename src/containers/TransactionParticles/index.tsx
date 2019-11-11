@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Particles from '../../Views/Particles';
 import FilterButtons from '../../Views/Particles/components/FilterButtons';
-// import transactions from '../../data/transactions.json';
 import Overlay from '../../Views/Particles/components/Overlay';
 import HeaderText from '../../Views/Particles/components/HeaderText';
 import axios from 'axios';
@@ -20,6 +19,7 @@ const TransactionParticles = () => {
   const [unfiltererdValues, setUnfiltererdValues] = useState(['']);
   const [processRunning, setProcessRunning] = useState(false);
   const [activeOverlay, setActiveOverlay] = useState(false);
+  const [filterButtons, setFilterButtons] = useState([]) as any[];
 
   const toggleOverlay = () => {
     setActiveOverlay(!activeOverlay);
@@ -34,6 +34,11 @@ const TransactionParticles = () => {
         .then((response: any) => {
           setParticles(response.data.results);
           setTrans(response.data.results);
+          const result = response.data.results.map(
+            (a: any) => a.transaction_category
+          );
+          const x = [...new Set(result)];
+          setFilterButtons(x);
         })
         .catch(() => {
           console.log('ERROR!!!');
@@ -81,11 +86,12 @@ const TransactionParticles = () => {
           <HeaderText />
         </FlexRow>
         <FlexRow>
-          <FlexCol>
+          <FlexCol style={{ marginBottom: '24px' }}>
             <Button onClick={e => addBank(e)}>Connect Bank Account</Button>
           </FlexCol>
           <FlexCol style={{ marginBottom: '24px' }}>
             <FilterButtons
+              filterButtons={filterButtons}
               handleClick={handleClick}
               unfiltererdValues={unfiltererdValues}
             />

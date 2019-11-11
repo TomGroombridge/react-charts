@@ -39,10 +39,6 @@ const AddBankAccount = () => {
         Add Bank Account
       </Heading>
       <Button onClick={e => handleClick(e)}>Connect Bank Account</Button>
-      {/* {accounts &&
-        accounts.map((account: any) => {
-          return <h1>{account}</h1>;
-        })} */}
     </FlexContainer>
   );
 };
