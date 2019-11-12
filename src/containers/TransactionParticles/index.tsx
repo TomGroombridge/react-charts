@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import Particles from '../../Views/Particles';
-import FilterButtons from '../../Views/Particles/components/FilterButtons';
-import Overlay from '../../Views/Particles/components/Overlay';
-import HeaderText from '../../Views/Particles/components/HeaderText';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import Particles from "../../Views/Particles";
+import FilterButtons from "../../Views/Particles/components/FilterButtons";
+import Overlay from "../../Views/Particles/components/Overlay";
+import HeaderText from "../../Views/Particles/components/HeaderText";
+import axios from "axios";
 import {
   FlexContainer,
   FlexRow,
@@ -11,19 +11,21 @@ import {
   Button,
   Heading,
   colors
-} from '@zopauk/react-components';
-import { useLocation } from 'react-router-dom';
-import styled from 'styled-components';
+} from "@zopauk/react-components";
+import { useLocation } from "react-router-dom";
+import styled from "styled-components";
+import { useCookies } from "react-cookie";
 
 const TransactionParticles = () => {
   let location = useLocation();
-  const [trans, setTrans] = useState([]) as any[];
-  const [particles, setParticles] = useState([]) as any[];
-  const [unfiltererdValues, setUnfiltererdValues] = useState(['']);
+  const [trans, setTrans] = useState();
+  const [particles, setParticles] = useState();
+  const [unfiltererdValues, setUnfiltererdValues] = useState([""]);
   const [processRunning, setProcessRunning] = useState(false);
   const [activeOverlay, setActiveOverlay] = useState(false);
-  const [filterButtons, setFilterButtons] = useState([]) as any[];
+  const [filterButtons, setFilterButtons] = useState();
   const [loading, setLoading] = useState(false);
+  const [cookies, setCookie] = useCookies([]);
 
   const toggleOverlay = () => {
     setActiveOverlay(!activeOverlay);
@@ -31,37 +33,53 @@ const TransactionParticles = () => {
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
-    const code = params.get('code');
+    const code = params.get("code");
     if (code !== null) {
       setLoading(true);
       axios
         .get(`http://localhost:5000/truelayer-redirect?code=${code}`)
-        .then((response: any) => {
-          setParticles(response.data.results);
-          setTrans(response.data.results);
-          const result = response.data.results.map(
-            (a: any) => a.transaction_category
-          );
-          const x = [...new Set(result)];
-          setFilterButtons(x);
-          setLoading(false);
+        .then(async (response: any) => {
+          const accessToken = response.data.access_token;
+          await setCookie("accessToken", accessToken, { path: "/" });
+          axios
+            .get(`http://localhost:5000/accounts`, {
+              headers: {
+                authorization: accessToken
+              }
+            })
+            .then(accountResponse => {
+              setParticles(accountResponse.data.results);
+              setTrans(accountResponse.data.results);
+              const result = accountResponse.data.results.map(
+                (a: any) => a.transaction_category
+              );
+              const x = [...new Set(result)];
+              setFilterButtons(x);
+              setLoading(false);
+            })
+            .catch(error => {
+              console.log("ERROR!!!", error);
+              setLoading(false);
+            });
         })
-        .catch(() => {
-          console.log('ERROR!!!');
+        .catch(error => {
+          console.log("ERROR!!!", error);
           setLoading(false);
         });
     }
   }, []);
 
   useEffect(() => {
-    if (trans.length === 0) {
+    if (!trans) {
       return;
     }
-    const filteredParticles = trans.filter((particle: any) => {
-      return (
-        unfiltererdValues.indexOf(particle.transaction_category as any) < 0
-      );
-    });
+    const filteredParticles =
+      trans &&
+      trans.filter((particle: any) => {
+        return (
+          unfiltererdValues.indexOf(particle.transaction_category as any) < 0
+        );
+      });
 
     setParticles([...filteredParticles]);
     setProcessRunning(false);
@@ -70,7 +88,7 @@ const TransactionParticles = () => {
   const addBank = (e: any) => {
     e.preventDefault();
     window.location.href =
-      'https://auth.truelayer.com/?response_type=code&client_id=pastuso-b0abfa&nonce=1014605873&scope=info%20accounts%20balance%20cards%20transactions%20direct_debits%20standing_orders%20offline_access&redirect_uri=http://localhost:3000/addBankAccount&providers=uk-ob-all%20uk-oauth-all';
+      "https://auth.truelayer.com/?response_type=code&client_id=pastuso-b0abfa&nonce=1014605873&scope=info%20accounts%20balance%20cards%20transactions%20direct_debits%20standing_orders%20offline_access&redirect_uri=http://localhost:3000/addBankAccount&providers=uk-ob-all%20uk-oauth-all";
 
     return null;
   };
@@ -93,7 +111,7 @@ const TransactionParticles = () => {
           <FormLayout>
             <FlexRow>
               <SFlexCol>
-                <Heading as={'h1'} color={'#FFFFFF'}>
+                <Heading as={"h1"} color={"#FFFFFF"}>
                   Loading...
                 </Heading>
               </SFlexCol>
@@ -106,13 +124,13 @@ const TransactionParticles = () => {
     return (
       <>
         <SFlexContainer activeOverlay={!activeOverlay}>
-          {particles.length > 0 ? (
+          {particles && particles.length > 0 ? (
             <>
               <FlexRow>
                 <HeaderText />
               </FlexRow>
               <FlexRow>
-                <FlexCol style={{ marginBottom: '24px' }}>
+                <FlexCol style={{ marginBottom: "24px" }}>
                   <FilterButtons
                     filterButtons={filterButtons}
                     handleClick={handleClick}
@@ -122,7 +140,7 @@ const TransactionParticles = () => {
                 <FlexCol>
                   <Button
                     onClick={() => toggleOverlay()}
-                    styling='contrastPrimary'
+                    styling="contrastPrimary"
                     contrastColor={colors.base.primary}
                   >
                     Show Transactions
@@ -142,12 +160,12 @@ const TransactionParticles = () => {
             <FormLayout>
               <FlexRow>
                 <SFlexCol>
-                  <Heading as={'h1'} color={'#FFFFFF'}>
+                  <Heading as={"h1"} color={"#FFFFFF"}>
                     Connect bank to view transactions
                   </Heading>
                   <Button
                     onClick={e => addBank(e)}
-                    styling='contrastPrimary'
+                    styling="contrastPrimary"
                     contrastColor={colors.base.primary}
                   >
                     Connect Bank Account
@@ -158,11 +176,13 @@ const TransactionParticles = () => {
           )}
         </SFlexContainer>
 
-        <Overlay
-          active={activeOverlay}
-          activeWeek={particles}
-          hideOverlay={toggleOverlay}
-        />
+        {particles && (
+          <Overlay
+            active={activeOverlay}
+            activeWeek={particles}
+            hideOverlay={toggleOverlay}
+          />
+        )}
       </>
     );
   }
@@ -182,7 +202,7 @@ const SFlexCol = styled(FlexCol)`
 `;
 
 const SFlexContainer: any = styled(FlexContainer)`
-  display: ${(props: any) => (props.activeOverlay ? 'block' : 'none')};
+  display: ${(props: any) => (props.activeOverlay ? "block" : "none")};
   text-align: center;
 `;
 
