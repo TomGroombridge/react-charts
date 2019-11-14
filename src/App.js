@@ -1,21 +1,26 @@
-import React from 'react';
-import { GlobalStyles } from '@zopauk/react-components';
-import styled from 'styled-components';
-import TransactionalChart from './containers/TransactionalChart';
-import TransactionParticles from './containers/TransactionParticles';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import React from "react";
+import { GlobalStyles } from "@zopauk/react-components";
+import styled from "styled-components";
+import TransactionalChart from "./containers/TransactionalChart";
+import TransactionParticles from "./containers/TransactionParticles";
+import AddBankAccount from "./containers/AddBankAccount";
+import { Router, Switch, Route } from "react-router-dom";
+import history from "./history";
 
 const App = () => {
   return (
     <SMain>
       <GlobalStyles />
-      <Router>
+      <Router history={history}>
         <Switch>
-          <Route exact path='/'>
+          <Route exact path="/">
             <TransactionalChart />
           </Route>
-          <Route path='/addBankAccount' exact>
+          <Route path="/transactions" exact>
             <TransactionParticles />
+          </Route>
+          <Route path="/addBankAccount" exact>
+            <AddBankAccount />
           </Route>
         </Switch>
       </Router>

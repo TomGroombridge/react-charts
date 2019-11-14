@@ -1,6 +1,6 @@
-import React from 'react';
-import { Button } from '@zopauk/react-components';
-import styled from 'styled-components';
+import React from "react";
+import { Button } from "@zopauk/react-components";
+import styled from "styled-components";
 
 const FilterButtons = ({
   handleClick,
@@ -10,12 +10,13 @@ const FilterButtons = ({
   return (
     <>
       {filterButtons &&
-        filterButtons.map((button: any) => {
+        filterButtons.map((button: any, index: number) => {
           return (
             <SButton
               onClick={() => handleClick(button)}
-              styling={'contrastSecondary'}
+              styling={"contrastSecondary"}
               filteredOut={unfiltererdValues.includes(button)}
+              key={index}
             >
               {button}
             </SButton>
