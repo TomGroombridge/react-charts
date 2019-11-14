@@ -101,7 +101,7 @@ const TransactionParticles = () => {
     return (
       <>
         <SFlexContainer activeOverlay={!activeOverlay}>
-          {particles && particles.length > 0 && (
+          {particles && (
             <>
               <FlexRow>
                 <HeaderText />
@@ -115,13 +115,15 @@ const TransactionParticles = () => {
                   />
                 </FlexCol>
                 <FlexCol>
-                  <Button
-                    onClick={() => toggleOverlay()}
-                    styling="contrastPrimary"
-                    contrastColor={colors.base.primary}
-                  >
-                    Show Transactions
-                  </Button>
+                  {particles && particles.length > 0 && (
+                    <Button
+                      onClick={() => toggleOverlay()}
+                      styling="contrastPrimary"
+                      contrastColor={colors.base.primary}
+                    >
+                      Show Transactions
+                    </Button>
+                  )}
                 </FlexCol>
               </FlexRow>
               <FlexRow>
@@ -135,7 +137,7 @@ const TransactionParticles = () => {
             </>
           )}
         </SFlexContainer>
-        {particles && (
+        {particles && particles.length > 0 && (
           <Overlay
             active={activeOverlay}
             activeWeek={particles}
