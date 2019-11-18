@@ -1492,12 +1492,12 @@
   resolved "https://registry.yarnpkg.com/@xtuc/long/-/long-4.2.2.tgz#d291c6a4e97989b5c61d9acf396ae4fe133a718d"
   integrity sha512-NuHqBY1PB/D8xU6s/thBgOAiAP7HOYDQ32+BFZILJ8ivkUkAHQnWfn6WhL79Owj1qmUnoN/YPhktdIoucipkAQ==
 
-"@zopauk/react-components@^2.2.1":
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/@zopauk/react-components/-/react-components-2.2.1.tgz#b20de6f67be3e2015d87d0ec2f8ee4d17583d60b"
-  integrity sha512-j8TsMweHFfBXyAIO65SvcvTIBN/cC61ZimhG9LySLlPXXgEyX28yQbKKfGDo33c3yQ9YxHXqrgihUkRKM+LBLA==
+"@zopauk/react-components@^2.3.4":
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/@zopauk/react-components/-/react-components-2.4.0.tgz#3e968eb2d7d30489db172c6bb0c44b70eda27510"
+  integrity sha512-qxdRFeXFVfbEJbrZLr/H0rb/Nvq2Nhpm+RcT+oiq4U/rCH/vDkDh8CvKMChPq4cTJ3ZtG9v5mMzzW/bIltlJ+Q==
   dependencies:
-    core-js "^3.1.4"
+    core-js "^3.3.5"
     downshift "^2.2.2"
     react-modal "^3.8.1"
     styled-normalize "^8.0.6"
@@ -2816,7 +2816,7 @@ core-js-compat@^3.1.1:
     browserslist "^4.6.6"
     semver "^6.3.0"
 
-core-js@3.2.1, core-js@^3.1.4:
+core-js@3.2.1:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.2.1.tgz#cd41f38534da6cc59f7db050fe67307de9868b09"
   integrity sha512-Qa5XSVefSVPRxy2XfUC13WbvqkxhkwB3ve+pgCQveNgYzbM/UxZeu1dcOX/xr4UmfUd+muuvsaxilQzCyUurMw==
@@ -2825,6 +2825,11 @@ core-js@^2.4.0:
   version "2.6.9"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.6.9.tgz#6b4b214620c834152e179323727fc19741b084f2"
   integrity sha512-HOpZf6eXmnl7la+cUdMnLvUxKNqLUzJvgIziQ0DiF3JwSImNphIqdGqzj6hIKyX04MmV0poclQ7+wjWvxQyR2A==
+
+core-js@^3.3.5:
+  version "3.4.1"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.4.1.tgz#76dd6828412900ab27c8ce0b22e6114d7ce21b18"
+  integrity sha512-KX/dnuY/J8FtEwbnrzmAjUYgLqtk+cxM86hfG60LGiW3MmltIc2yAmDgBgEkfm0blZhUrdr1Zd84J2Y14mLxzg==
 
 core-util-is@1.0.2, core-util-is@~1.0.0:
   version "1.0.2"

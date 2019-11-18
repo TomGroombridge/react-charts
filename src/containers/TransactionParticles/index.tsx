@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
-import Particles from "../../Views/Particles";
-import FilterButtons from "../../Views/Particles/components/FilterButtons";
-import Overlay from "../../Views/Particles/components/Overlay";
-import HeaderText from "../../Views/Particles/components/HeaderText";
+import React, { useState, useEffect } from 'react';
+import Particles from '../../Views/Particles';
+import FilterButtons from '../../Views/Particles/components/FilterButtons';
+import Overlay from '../../Views/Particles/components/Overlay';
+import HeaderText from '../../Views/Particles/components/HeaderText';
 import {
   FlexContainer,
   FlexRow,
@@ -10,20 +10,20 @@ import {
   Button,
   Heading,
   colors
-} from "@zopauk/react-components";
-import styled from "styled-components";
-import { useCookies } from "react-cookie";
-import axios from "axios";
+} from '@zopauk/react-components';
+import styled from 'styled-components';
+import { useCookies } from 'react-cookie';
+import axios from 'axios';
 
 const TransactionParticles = () => {
   const [trans, setTrans] = useState();
   const [particles, setParticles] = useState();
-  const [unfiltererdValues, setUnfiltererdValues] = useState([""]);
+  const [unfiltererdValues, setUnfiltererdValues] = useState(['']);
   const [processRunning, setProcessRunning] = useState(false);
   const [activeOverlay, setActiveOverlay] = useState(false);
   const [filterButtons, setFilterButtons] = useState();
   const [loading, setLoading] = useState(false);
-  const [cookies, setCookie, removeCookie] = useCookies(["accessToken"]);
+  const [cookies, setCookie, removeCookie] = useCookies(['accessToken']);
 
   const toggleOverlay = () => {
     setActiveOverlay(!activeOverlay);
@@ -49,7 +49,7 @@ const TransactionParticles = () => {
         setLoading(false);
       })
       .catch(error => {
-        console.log("ERROR!!!", error);
+        console.log('ERROR!!!', error);
         setLoading(false);
       });
   }, []);
@@ -88,7 +88,7 @@ const TransactionParticles = () => {
           <FormLayout>
             <FlexRow>
               <SFlexCol>
-                <Heading as={"h1"} color={"#FFFFFF"}>
+                <Heading as={'h1'} color={'#FFFFFF'}>
                   Loading...
                 </Heading>
               </SFlexCol>
@@ -107,7 +107,7 @@ const TransactionParticles = () => {
                 <HeaderText />
               </FlexRow>
               <FlexRow>
-                <FlexCol style={{ marginBottom: "24px" }}>
+                <FlexCol style={{ marginBottom: '24px' }}>
                   <FilterButtons
                     filterButtons={filterButtons}
                     handleClick={handleClick}
@@ -118,7 +118,7 @@ const TransactionParticles = () => {
                   {particles && particles.length > 0 && (
                     <Button
                       onClick={() => toggleOverlay()}
-                      styling="contrastPrimary"
+                      styling='contrastPrimary'
                       contrastColor={colors.base.primary}
                     >
                       Show Transactions
@@ -163,7 +163,7 @@ const SFlexCol = styled(FlexCol)`
 `;
 
 const SFlexContainer: any = styled(FlexContainer)`
-  display: ${(props: any) => (props.activeOverlay ? "block" : "none")};
+  display: ${(props: any) => (props.activeOverlay ? 'block' : 'none')};
   text-align: center;
 `;
 

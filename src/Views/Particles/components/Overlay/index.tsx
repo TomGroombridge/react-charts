@@ -4,7 +4,9 @@ import {
   FlexContainer,
   FlexRow,
   FlexCol,
-  Text
+  Text,
+  Modal,
+  Heading
 } from '@zopauk/react-components';
 import TransactionCard from '../TransactionCard';
 
@@ -26,36 +28,22 @@ const Overlay = ({ active, hideOverlay, activeWeek }: any) => {
       <br />
       <FlexRow>
         <FlexCol xs={12} m={12}>
-          <FlexRow style={{ marginBottom: '1em' }}>
-            <FlexCol xs={3} style={{ alignSelf: 'center' }}>
-              <Text
-                as={'label'}
-                color={'#FFFFFF'}
-                style={{ paddingLeft: '1em' }}
-              >
-                Merchant Name
-              </Text>
-            </FlexCol>
-            <FlexCol xs={2} style={{ alignSelf: 'center' }}>
-              <Text as={'label'} color={'#FFFFFF'}>
-                Date
-              </Text>
-            </FlexCol>
-            <FlexCol xs={3} style={{ alignSelf: 'center' }}>
-              <Text as={'label'} color={'#FFFFFF'}>
-                Amount
-              </Text>
-            </FlexCol>
-            <FlexCol xs={2} style={{ alignSelf: 'center' }}>
-              <Text as={'label'} color={'#FFFFFF'}>
-                #
-              </Text>
-            </FlexCol>
-            <FlexCol xs={2} style={{ alignSelf: 'center' }}>
-              <Text as={'label'} color={'#FFFFFF'}>
-                Category
-              </Text>
-            </FlexCol>
+          <FlexRow style={{ marginBottom: '1em', color: '#FFFFFF' }}>
+            <SFlexCol xs={3}>
+              <SText as={'label'}>Merchant Name</SText>
+            </SFlexCol>
+            <SFlexCol xs={2}>
+              <SText as={'label'}>Date</SText>
+            </SFlexCol>
+            <SFlexCol xs={3}>
+              <SText as={'label'}>Amount</SText>
+            </SFlexCol>
+            <SFlexCol xs={2}>
+              <SText as={'label'}>#</SText>
+            </SFlexCol>
+            <SFlexCol xs={2}>
+              <SText as={'label'}>Category</SText>
+            </SFlexCol>
           </FlexRow>
 
           {activeWeek.map((transaction: any, index: any) => {
@@ -91,6 +79,14 @@ const OverlayContainer: any = styled(FlexContainer)`
       transform: none;
       transition-delay: 0.9s;
     `}
+`;
+
+const SFlexCol = styled(FlexCol)`
+  align-self: center;
+`;
+
+const SText = styled(Text)`
+  color: #ffffff;
 `;
 
 const Back = styled.div`
