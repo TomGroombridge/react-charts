@@ -1,20 +1,28 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 
-const ItemBar = ({ active, delay, data, xAxis, showOverlay }) => {
+const ItemBar = ({
+  active,
+  delay,
+  data,
+  xAxis,
+  showOverlay,
+  height,
+  weeksData
+}) => {
   return (
-    <StatsItem onClick={() => showOverlay()}>
+    <StatsItem onClick={() => showOverlay(weeksData)}>
       <StatsItemNum active={active} delay={delay}>
         {xAxis}
       </StatsItemNum>
-      <StatsBar active={active} delay={delay} data={data} />
+      <StatsBar active={active} delay={delay} data={data} height={height} />
     </StatsItem>
   );
 };
 
 const StatsBar = styled.div`
   ${props => css`
-    height: ${props.data}px;
+    height: ${props.height}px;
   `}
   order: 0;
   width: 40px;

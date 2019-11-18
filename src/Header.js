@@ -26,6 +26,7 @@ const SHeader = styled.header`
       transform: none;
       opacity: 1;
     `}
+  margin-bottom: 50px;
 `;
 
 export default Header;
