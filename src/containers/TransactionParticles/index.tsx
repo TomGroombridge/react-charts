@@ -33,7 +33,7 @@ const TransactionParticles = () => {
     const accessToken = cookies.accessToken;
     setLoading(true);
     axios
-      .get(`http://localhost:5000/accounts`, {
+      .get(`${process.env.REACT_APP_API_URL}/accounts`, {
         headers: {
           authorization: accessToken
         }
